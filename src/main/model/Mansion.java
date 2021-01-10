@@ -15,7 +15,7 @@ public class Mansion {
 
     }
 
-    public void requireUpwardFloors(Integer floor) {
+    public void setRequiringUpwardFloors(Integer floor) {
         if (!requiringUpwardFloors.contains(floor)) {
             requiringUpwardFloors.add(floor);
         }

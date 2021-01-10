@@ -1,12 +1,17 @@
 package ui;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.*;
+import model.Mansion;
+
+import static ui.ElevatorSimulator.mansion;
 
 public class gui extends JFrame{
     // JPanel
     JPanel floors= new floor_indicator();
     // Buttons
     JPanel control_panel = new control_panel();
+
 
     public gui() {
 
@@ -87,12 +92,36 @@ public class gui extends JFrame{
         }
     }
 
+    // requests to go up or down at each floor
+    private class floor_button extends JButton{
+        public int direction;
+        public int floor;
+        public floor_button(int direction, int floor) {
+            super();
+            this.direction = direction;
+            this.floor = floor;
+            addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (direction == 1) {
+                        ElevatorSimulator.mansion.setRequiringDownwardFloors(floor);
+                    } else {
+                        ElevatorSimulator.mansion.setRequiringUpwardFloors(floor);
+                    }
+                }
+            });
+        }
+    }
+
 
 
     private class elevator_button extends JButton{
-
-        public elevator_button() {
+        public int floor; // requiring floors
+        public int code; // elevator code
+        public elevator_button(int floor,int code) {
             super();
+            this.code = code;
+            this.floor = floor;
         }
 
     }
