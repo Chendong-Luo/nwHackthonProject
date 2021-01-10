@@ -26,6 +26,7 @@ public class Elevator {
         return floor;
     }
 
+
     public Integer goDown() {
         if (floor - 1 >= 0) {
             floor -= 1;
