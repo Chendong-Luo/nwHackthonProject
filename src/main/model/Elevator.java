@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Elevator {
     private int floor;
-    private final int MAXFLOOR = 10;
+    public static final int MAXFLOOR = 10;
     private int direction;
     private int currentDispatchTarget;
     private int dispatchTargetDirection;
@@ -19,16 +19,18 @@ public class Elevator {
         reservedTargetFloors = new ArrayList<>();
     }
 
-    public Integer goUp() {
+    public Integer goUp() throws InterruptedException {
         if (floor + 1 <= MAXFLOOR) {
+            Thread.sleep(4000);
             floor += 1;
         }
         return floor;
     }
 
 
-    public Integer goDown() {
+    public Integer goDown() throws InterruptedException {
         if (floor - 1 >= 0) {
+            Thread.sleep(4000);
             floor -= 1;
         }
         return floor;
@@ -44,8 +46,17 @@ public class Elevator {
         return floor;
     }
 
-    public void setFloor(Integer floor) {
-        this.floor = floor;
+    public void setFloor(Integer floor) throws InterruptedException {
+        if (this.floor >= floor) {
+            for(int i = 0; i < this.floor - floor; i++) {
+                goUp();
+            }
+        } else {
+            for(int i = 0; i < floor - this.floor; i++) {
+                goDown();
+            }
+        }
+
     }
 
     public int getDirection() {
@@ -72,5 +83,7 @@ public class Elevator {
         this.dispatchTargetDirection = dispatchTargetDirection;
     }
 
-
+    public List<Integer> getReservedTargetFloors() {
+        return reservedTargetFloors;
+    }
 }

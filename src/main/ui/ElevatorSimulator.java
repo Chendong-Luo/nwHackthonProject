@@ -1,5 +1,6 @@
 package ui;
 
+import model.Elevator;
 import model.Mansion;
 
 import java.util.concurrent.Semaphore;
@@ -30,7 +31,21 @@ public class ElevatorSimulator {
             while (true) {
                 try {
                     semaphore.acquire();
-                    if(mansion.getElevator1().getDirection() == 0) {
+                    if(mansion.getElevator1().getDirection() == 1) {
+                        if(!mansion.getRequiringUpwardFloors().isEmpty()) {
+                            for(int i = mansion.getElevator1().getFloor() + 1; i <= Elevator.MAXFLOOR; i++) {
+                                if(mansion.getRequiringUpwardFloors().contains(i)) {
+                                    mansion.getRequiringUpwardFloors().remove(i);
+                                    mansion.getElevator1().setCurrentDispatchTarget(i);
+                                    break;
+                                }
+                            }
+                        } else {
+                            if (!mansion.getRequiringDownwardFloors().isEmpty()) {
+
+                            }
+
+                        }
 
                     }
 
@@ -44,6 +59,8 @@ public class ElevatorSimulator {
                 } finally {
                     semaphore.release();
                 }
+
+
 
             }
         }
