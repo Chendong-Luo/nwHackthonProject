@@ -21,24 +21,24 @@ public class gui extends JFrame{
         floors.repaint();
 
         control_panel.setLayout(null);
-        for (int i = 1; i <= 10; i++) {
-            JButton floor = new JButton(String.valueOf(i));
-            floor.setBounds(40,   220+60 * i, 200, 50);
+        for (int i = 2; i <= 10; i++) {
+            JButton floor = new floor_button(1,i);
+            floor.setBounds(40,   220+60 * (i-1), 200, 50);
             control_panel.add(floor);
         }
-        for (int i = 1; i <= 10; i++) {
-            JButton floor = new JButton(String.valueOf(i));
+        for (int i = 1; i <= 9; i++) {
+            JButton floor = new floor_button(-1,i);
             floor.setBounds(280,220+60*i,200,50);
             control_panel.add(floor);
         }
 
         for (int i = 1; i <= 10; i++) {
-            JButton floor = new JButton(String.valueOf(i));
+            JButton floor = new elevator_button(i,1);
             floor.setBounds(520,220+60*i,200,50);
             control_panel.add(floor);
         }
         for (int i = 1; i <= 10; i++) {
-            JButton floor = new JButton(String.valueOf(i));
+            JButton floor = new elevator_button(i,2);
             floor.setBounds(760,220+60*i,200,50);
             control_panel.add(floor);
         }
@@ -97,16 +97,16 @@ public class gui extends JFrame{
         public int direction;
         public int floor;
         public floor_button(int direction, int floor) {
-            super();
+            super(String.valueOf(floor));
             this.direction = direction;
             this.floor = floor;
             addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     if (direction == 1) {
-                        ElevatorSimulator.mansion.setRequiringDownwardFloors(floor);
-                    } else {
                         ElevatorSimulator.mansion.setRequiringUpwardFloors(floor);
+                    } else {
+                        ElevatorSimulator.mansion.setRequiringDownwardFloors(floor);
                     }
                 }
             });
@@ -119,9 +119,19 @@ public class gui extends JFrame{
         public int floor; // requiring floors
         public int code; // elevator code
         public elevator_button(int floor,int code) {
-            super();
+            super(String.valueOf(floor));
             this.code = code;
             this.floor = floor;
+            addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    if (code == 1) {
+                        ElevatorSimulator.mansion.getElevator1().reserveFloor(floor);
+                    } else {
+                        ElevatorSimulator.mansion.getElevator2().reserveFloor(floor);
+                    }
+                }
+            });
         }
 
     }
