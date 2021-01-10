@@ -30,6 +30,11 @@ public class ElevatorSimulator {
             while (true) {
                 try {
                     semaphore.acquire();
+                    if(mansion.getElevator1().getDirection() == 0) {
+
+                    }
+
+
 
 
 

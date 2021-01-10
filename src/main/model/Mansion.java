@@ -28,4 +28,19 @@ public class Mansion {
         }
     }
 
+    public Elevator getElevator1() {
+        return ElevatorStates.get(0);
+    }
+
+    public Elevator getElevator2() {
+        return ElevatorStates.get(1);
+    }
+
+    public List<Integer> getRequiringDownwardFloors() {
+        return requiringDownwardFloors;
+    }
+
+    public List<Integer> getRequiringUpwardFloors() {
+        return requiringUpwardFloors;
+    }
 }
